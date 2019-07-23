@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-const VideoPlayer = ({video}) => {
+const VideoPlayer = ({ video }) => {
   // const video = props.video;
   // Conditional Rendering Statement needed
   if (!video) {

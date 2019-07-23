@@ -52,7 +52,10 @@ class App extends Component {
     return axios.get(`/video/${title}`).then((response) => {
       this.setState({
         video: response.data,
-      });
+      })
+        .catch((err) => {
+          console.log('failed to search YT: ', err);
+        });
     });
   }
 
@@ -78,16 +81,16 @@ class App extends Component {
         <Navigation />
         <div className="container">
           <h4>Who do you want to listen to?</h4>
-          </div>
-          <div className="col-md-6 offset-md-3">
-            <Search
-              query={query}
-              change={this.handleChange}
-              search={this.clickSearch}
-              positivePolarity={this.handlePositivePolarity}
-              negativePolarity={this.handleNegativePolarity}
-            />
-          </div>
+        </div>
+        <div className="col-md-6 offset-md-3">
+          <Search
+            query={query}
+            change={this.handleChange}
+            search={this.clickSearch}
+            positivePolarity={this.handlePositivePolarity}
+            negativePolarity={this.handleNegativePolarity}
+          />
+        </div>
         <div className="section">
           <div className="player">
             <VideoPlayer video={video} />
