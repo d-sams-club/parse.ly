@@ -1,9 +1,12 @@
 import React from 'react';
 
 const SongListEntry = (props) => {
-  const { song, songTitleClick, polarity } = props;
+  const { song, songTitleClick, polarity, handleSave } = props;
   const titleClick = () => {
     songTitleClick(`${song.artist} ${song.songname}`);
+  };
+  const saveSong = () => {
+    handleSave(`${song.songname}`);
   };
   return (
     <li className="listItems">
@@ -13,12 +16,14 @@ const SongListEntry = (props) => {
       </div> */}
       <div className="song-title" onClick={titleClick} >
       {song.artist} | {song.songname}
+      
       </div>
       
       <div className="score">
         <b>Score: </b>
         {`${Math.floor(song.score * 100)}% ${polarity} lyrics`}
       </div>
+      <button className="waves-effect waves-light btn blue accent-3" onClick={saveSong}>Save</button>
     </li>
   );
 };

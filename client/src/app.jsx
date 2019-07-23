@@ -23,6 +23,7 @@ class App extends Component {
     this.songTitleClick = this.songTitleClick.bind(this);
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   componentWillMount() {
@@ -46,6 +47,11 @@ class App extends Component {
     this.setState({
       query: e.target.value,
     });
+  }
+
+  handleSave(song) {
+    console.log('click');
+    console.log(song);
   }
 
   songTitleClick(title) {
@@ -93,7 +99,7 @@ class App extends Component {
             <VideoPlayer video={video} />
           </div>
           <div className="songTitles">
-            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} />
+            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} handleSave={this.handleSave} />
           </div>
         </div>
       </React.Fragment>

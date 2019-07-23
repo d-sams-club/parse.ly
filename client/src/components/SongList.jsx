@@ -3,14 +3,14 @@ import React from 'react';
 import SongListEntry from './SongListEntry.jsx';
 
 const SongList = (props) => {
-  const { songs, polarity, songTitleClick } = props;
+  const { songs, polarity, songTitleClick, handleSave } = props;
   let songview;
   if (polarity === 'positive') {
     songview = songs.filter(song => song.polarity === 'positive')
-      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} />);
+      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} />);
   } else if (polarity === 'negative') {
     songview = songs.filter(song => song.polarity === 'negative')
-      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} />);
+      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} />);
   }
 
   return (

@@ -27,6 +27,10 @@ h2 {
 a {
 	-webkit-tap-highlight-color: transparent;
 	text-decoration: none;
+	float: left;
+	display: block;
+  padding: 8px;
+  background-color: #dddddd;
  }
  .button {
 	display: inline-block;
