@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -17,8 +18,8 @@ const { Song, User } = require('../database/database');
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.AUTH0_CLIENT_ID,
+      clientSecret: process.env.AUTH0_CLIENT_SECRET,
       callbackURL: '/auth/google/callback',
     },
     ((accessToken, refreshToken, profile, done) => {
@@ -238,36 +239,36 @@ app.get('/topten/negative', (req, res) => {
 //       polarity: 'negative',
 //     },
 //     {
-    //   songname: 'Daydreaming',
-    //   artist: 'radiohead',
-    //   trackId: 111289200,
-    //   score: 0.8257342576980591,
-    //   polarity: 'negative',
-    // },
-    // {
-    //   songname: 'Decks Dark',
-    //   artist: 'radiohead',
-    //   trackId: 111289202,
-    //   score: 0.535029947757721,
-    //   polarity: 'positive',
-    // },
-    // {
-    //   songname: 'Desert Island Disk',
-    //   artist: 'radiohead',
-    //   trackId: 111289204,
-    //   score: 0.520104706287384,
-    //   polarity: 'negative',
-    // },
-    // {
-    //   songname: 'Ful Stop',
-    //   artist: 'radiohead',
-    //   trackId: 111289205,
-    //   score: 0.9969593286514282,
-    //   polarity: 'negative',
-    // },
-    // {
-    //   songname: 'Glass Eyes',
-    //   artist: 'radiohead',
+//   songname: 'Daydreaming',
+//   artist: 'radiohead',
+//   trackId: 111289200,
+//   score: 0.8257342576980591,
+//   polarity: 'negative',
+// },
+// {
+//   songname: 'Decks Dark',
+//   artist: 'radiohead',
+//   trackId: 111289202,
+//   score: 0.535029947757721,
+//   polarity: 'positive',
+// },
+// {
+//   songname: 'Desert Island Disk',
+//   artist: 'radiohead',
+//   trackId: 111289204,
+//   score: 0.520104706287384,
+//   polarity: 'negative',
+// },
+// {
+//   songname: 'Ful Stop',
+//   artist: 'radiohead',
+//   trackId: 111289205,
+//   score: 0.9969593286514282,
+//   polarity: 'negative',
+// },
+// {
+//   songname: 'Glass Eyes',
+//   artist: 'radiohead',
 //       trackId: 111289206,
 //       score: 0.730898916721344,
 //       polarity: 'positive',
@@ -328,6 +329,7 @@ app.get('/topten/negative', (req, res) => {
 // GET sent from search function
 app.get('/search/:artist', (req, res) => {
   const { artist } = req.params;
+  console.log(artist);
   // 1: get aritist ID from MusixMatch, using the query obj
   axios.get(`https://api.musixmatch.com/ws/1.1/artist.search?q_artist=${artist}&apikey=${process.env.MM_API_KEY}`)
     .then((response) => {
