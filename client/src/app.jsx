@@ -16,6 +16,7 @@ class App extends Component {
       video: '',
       query: '',
       songs: [],
+      favSongs: [],
       polarity: '',
     };
     this.clickSearch = this.clickSearch.bind(this);
@@ -50,6 +51,10 @@ class App extends Component {
   }
 
   handleSave(song) {
+    this.setState({
+      favSongs: this.state.favSongs.concat(song),
+    });
+    console.log(this.state.favSongs);
     console.log('click');
     console.log(song);
   }

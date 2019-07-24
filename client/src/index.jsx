@@ -8,6 +8,7 @@ import {
 import App from './app.jsx';
 import Landing from './Landing.jsx';
 import TopTen from './topten.jsx';
+import Library from './Library.jsx';
 
 const routing = (
   <Router>
@@ -16,6 +17,7 @@ const routing = (
       <Route exact path="/" component={Landing} />
       <Route path="/music" component={App} />
       <Route path="/topten" component={TopTen} />
+      <Route path="/library" component={Library} />
     </React.Fragment>
     </Switch>
   </Router>
