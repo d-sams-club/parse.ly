@@ -77,6 +77,10 @@ app.use(passport.session());
 /* GET Google Authentication API. */
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+app.get('/images/:imgName', (req, res) => {
+  res.sendFile(`${__dirname}/images/${req.params.imgName}`);
+});
+
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/', session: false }),
   (req, res) => {

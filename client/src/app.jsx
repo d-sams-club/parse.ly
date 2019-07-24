@@ -1,3 +1,6 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 
 import axios from 'axios';
@@ -23,14 +26,21 @@ class App extends Component {
     this.songTitleClick = this.songTitleClick.bind(this);
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
+    this.emojiClick = this.emojiClick.bind(this);
   }
 
   componentWillMount() {
-    const query = queryString.parse(this.props.location.search);
+    const { location, history } = this.props;
+    const query = queryString.parse(location.search);
     if (query.token) {
       window.localStorage.setItem('jwt', query.token);
-      this.props.history.push('/music');
+      history.push('/music');
     }
+  }
+
+  emojiClick() {
+    // const { songs } = this.state;
+    console.log('yurd');
   }
 
   clickSearch() {
@@ -93,7 +103,8 @@ class App extends Component {
         </div>
         <div className="section">
           <div className="player">
-            <VideoPlayer video={video} />
+            {/* need to pass in the scale function here */}
+            <VideoPlayer video={video} emojiClick={this.emojiClick} />
           </div>
           <div className="songTitles">
             <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} />

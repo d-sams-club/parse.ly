@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 const SongListEntry = (props) => {
@@ -11,10 +12,10 @@ const SongListEntry = (props) => {
         <b>Artist: </b>
         {song.artist}
       </div> */}
-      <div className="song-title" onClick={titleClick} >
-      {song.artist} | {song.songname}
+      <div className="song-title" onClick={titleClick}>
+        {song.artist} | {song.songname}
       </div>
-      
+
       <div className="score">
         <b>Score: </b>
         {`${Math.floor(song.score * 100)}% ${polarity} lyrics`}
