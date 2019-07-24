@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SongListEntry from './SongListEntry.jsx';
+import Library from '../Library.jsx';
 
 const SongList = (props) => {
   const { songs, polarity, songTitleClick, handleSave } = props;
@@ -12,6 +13,9 @@ const SongList = (props) => {
     songview = songs.filter(song => song.polarity === 'negative')
       .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} />);
   }
+  songs.forEach((song) => {
+     <Library song={song} />
+  })
 
   return (
     <React.Fragment>

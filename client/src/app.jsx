@@ -7,6 +7,7 @@ import Navigation from './navbar.jsx';
 import Search from './components/Search.jsx';
 import SongList from './components/SongList.jsx';
 import VideoPlayer from './components/VideoPlayer.jsx';
+import Library from './Library.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class App extends Component {
     this.setState({
       favSongs: this.state.favSongs.concat(song),
     });
-    console.log(this.state.favSongs);
+    console.log('log from app', this);
     console.log('click');
     console.log(song);
   }
@@ -82,7 +83,7 @@ class App extends Component {
 
   render() {
     const {
-      query, songs, polarity, video,
+      query, songs, polarity, video, favSongs
     } = this.state;
     return (
       <React.Fragment>
@@ -106,6 +107,7 @@ class App extends Component {
           <div className="songTitles">
             <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} handleSave={this.handleSave} />
           </div>
+          
         </div>
       </React.Fragment>
     );

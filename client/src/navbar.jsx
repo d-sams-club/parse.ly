@@ -21,7 +21,8 @@ return (
       <div>
       <Link to="/music" className="brand-logo center">Find Your Beat</Link></div>
       <a href="#" data-activates="mobile-demo" className="button-collapse show-on-large"><i className="material-icons">menu</i></a>
-      <a href="/topten" data-activates="mobile-demo" className="button-collapse show-on-large"><i class="material-icons">library_music</i></a>
+      <a href="/topten" data-activates="mobile-demo" className="button-collapse show-on-large"><i class="material-icons">top ten</i></a>
+      <a href="/library" data-activates="mobile-demo" className="button-collapse show-on-large"><i class="material-icons">library_music</i></a>
       </div>
     </div>
   </nav>
