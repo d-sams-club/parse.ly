@@ -106,8 +106,9 @@ h5 {
 
 #emojiHeader {
   position: absolute;
+  font-size: 30px;
   top: 800px;
-  left: 1155px;
+  left: 1020px;
 }
 
 #veryHappy {
@@ -148,4 +149,10 @@ h5 {
   width: 60px;
   top: 883px;
   left: 1450px;
+}
+
+#entryEmoji {
+  position: relative;
+  height: 60px;
+  width: 60px;
 }

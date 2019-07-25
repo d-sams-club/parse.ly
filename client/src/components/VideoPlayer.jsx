@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const VideoPlayer = ({ video, emojiClick }) => {
+const VideoPlayer = ({ video }) => {
   // const video = props.video;
   // Conditional Rendering Statement needed
   // console.log(video);
@@ -21,9 +21,9 @@ const VideoPlayer = ({ video, emojiClick }) => {
       <div className="details">
         <div>
           {/* Song Info; maybe Score info? */}
-          <h3 id="emojiHeader">
-          How do you feel?
-          </h3>
+          <h4 id="emojiHeader">
+          Disagree with our ratings? What do you think?
+          </h4>
           <img src="/images/dummyhappy.png" alt="happy" id="veryHappy" />
           <img src="/images/ModerateHappy.png" alt="semi-happy" id="moderateHappy" />
           <img src="/images/Neutral.png" alt="neutral" id="Neutral" />

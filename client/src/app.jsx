@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return */
+/* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
@@ -26,7 +28,7 @@ class App extends Component {
     this.songTitleClick = this.songTitleClick.bind(this);
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
-    this.emojiClick = this.emojiClick.bind(this);
+    this.happyEmojiScore = this.happyEmojiScore.bind(this);
   }
 
   componentWillMount() {
@@ -38,9 +40,37 @@ class App extends Component {
     }
   }
 
-  emojiClick() {
+  happyEmojiScore(polarity, score) {
     // const { songs } = this.state;
-    console.log('yurd');
+    // very sad score
+    const newScore = Number(score);
+    console.log(newScore);
+    if (polarity === 'positive') {
+      if (newScore < 25) {
+        return <img src="/images/HellaSad.png" alt="sad" position="absolute" height="50px" width="50px" />;
+      } else if (newScore > 25 && newScore < 49) {
+        return <img src="/images/dummySad.png" alt="dumSad" position="absolute" height="50px" width="50px" />;
+      } else if (newScore === 50) {
+        return <img src="/images/Neutral.png" alt="neutral" position="absolute" height="50px" width="50px" />;
+      } else if (newScore > 50 && newScore < 75) {
+        return <img src="/images/ModerateHappy.png" alt="semi-happy" position="absolute" height="50px" width="50px" />;
+      } else {
+        return <img src="/images/dummyhappy.png" alt="happy" position="absolute" height="63px" width="63px" />;
+      }
+    }
+    if (polarity === 'negative') {
+      if (newScore < 25) {
+        return <img src="/images/dummyhappy.png" alt="happy" position="absolute" height="63px" width="63px" />;
+      } else if (newScore > 25 && newScore < 49) {
+        return <img src="/images/ModerateHappy.png" alt="semi-happy" position="absolute" height="50px" width="50px" />;
+      } else if (newScore === 50) {
+        return <img src="/images/Neutral.png" alt="neutral" position="absolute" height="50px" width="50px" />;
+      } else if (newScore > 50 && newScore < 75) {
+        return <img src="/images/dummySad.png" alt="dumSad" position="absolute" height="50px" width="50px" />;
+      } else {
+        return <img src="/images/HellaSad.png" alt="sad" position="absolute" height="50px" width="50px" />;
+      }
+    }
   }
 
   clickSearch() {
@@ -104,10 +134,10 @@ class App extends Component {
         <div className="section">
           <div className="player">
             {/* need to pass in the scale function here */}
-            <VideoPlayer video={video} emojiClick={this.emojiClick} />
+            <VideoPlayer video={video} />
           </div>
           <div className="songTitles">
-            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} />
+            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} emojiScore={this.happyEmojiScore} />
           </div>
         </div>
       </React.Fragment>

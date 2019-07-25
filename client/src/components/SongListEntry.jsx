@@ -1,11 +1,16 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React from 'react';
 
 const SongListEntry = (props) => {
-  const { song, songTitleClick, polarity } = props;
+  const { song, songTitleClick, polarity, iconScore } = props;
   const titleClick = () => {
     songTitleClick(`${song.artist} ${song.songname}`);
   };
+  const songScore = `${Math.floor(song.score * 100)}`;
+  console.log(song.songname, songScore);
+  console.log(polarity);
+  console.log(iconScore(songScore));
   return (
     <li className="listItems">
       {/* <div className="artist-name">
@@ -17,8 +22,10 @@ const SongListEntry = (props) => {
       </div>
 
       <div className="score">
-        <b>Score: </b>
-        {`${Math.floor(song.score * 100)}% ${polarity} lyrics`}
+        {/* <b>Score: </b> */}
+        {iconScore(polarity, songScore)}
+        {/* {`${songScore}% ${polarity} lyrics`}
+        <img src="/images/dummyhappy.png" alt="happy" /> */}
       </div>
     </li>
   );

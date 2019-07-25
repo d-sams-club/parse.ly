@@ -1,23 +1,26 @@
+/* eslint-disable max-len */
 /* eslint-disable react/prop-types */
 import React from 'react';
 
 import SongListEntry from './SongListEntry.jsx';
 
 const SongList = (props) => {
-  const { songs, polarity, songTitleClick } = props;
+  const {
+    songs, polarity, songTitleClick, emojiScore,
+  } = props;
   let songview;
   if (polarity === 'positive') {
     songview = songs.filter(song => song.polarity === 'positive')
-      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} />);
+      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} iconScore={emojiScore} />);
   } else if (polarity === 'negative') {
     songview = songs.filter(song => song.polarity === 'negative')
-      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} />);
+      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} iconScore={emojiScore} />);
   }
-
   return (
     <React.Fragment>
       {/* <div className="lastContainer"> */}
       {/* <div className="container"> */}
+
       <ul className="left mplpx">
         {/* <SongListEntry /> */}
         {/* Map over each Song Entry to render in list form */}
