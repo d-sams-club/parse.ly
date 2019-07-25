@@ -19,11 +19,21 @@ const userSchema = new mongoose.Schema({
   userid: Number,
 });
 
+const favoriteSongSchema = new mongoose.Schema({
+  songname: String,
+  artistname: String,
+  score: Number,
+  polarity: String,
+  trackId: Number,
+});
+
 const Song = mongoose.model('Song', songSchema);
 const User = mongoose.model('User', userSchema);
+const FavoriteSongs = mongoose.model('FavoriteSongs', favoriteSongSchema);
 
 
 module.exports = {
   Song,
   User,
+  FavoriteSongs
 };
