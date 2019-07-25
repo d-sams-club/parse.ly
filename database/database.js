@@ -31,9 +31,16 @@ const Song = mongoose.model('Song', songSchema);
 const User = mongoose.model('User', userSchema);
 const FavoriteSongs = mongoose.model('FavoriteSongs', favoriteSongSchema);
 
+const saveFavorite = function(song) {
+  let Mysong = new FavoriteSongs({songname: song.songname ,artistname: song.artistname ,score: song.score ,polarity: song.polarity ,trackId: song.trackId})
+  Mysong.save();
+  console.log(song, 'song has been saved!');
+}
+
 
 module.exports = {
   Song,
   User,
-  FavoriteSongs
+  FavoriteSongs,
+  saveFavorite
 };

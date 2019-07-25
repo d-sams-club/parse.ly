@@ -6,7 +6,7 @@ const SongListEntry = (props) => {
     songTitleClick(`${song.artist} ${song.songname}`);
   };
   const saveSong = () => {
-    handleSave(`${song.songname}`);
+    handleSave(song);
   };
   return (
     <li className="listItems">
