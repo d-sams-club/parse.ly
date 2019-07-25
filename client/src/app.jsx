@@ -107,7 +107,6 @@ class App extends Component {
           <div className="songTitles">
             <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} handleSave={this.handleSave} />
           </div>
-          
         </div>
       </React.Fragment>
     );

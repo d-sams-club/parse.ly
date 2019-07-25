@@ -94,11 +94,11 @@ app.get('/', (req, res) => {
 
 app.get('/library', (req, res) => {
   console.log('here');
-  Song.find().limit(10) //REMOVE TO SHOW ALL OF USERS FAVORITED SONGS
+  Song.find().limit(1) //REMOVE TO SHOW ALL OF USERS FAVORITED SONGS
     .then((results) => {
       console.log('library results', results);
       res.status(200);
-      res.json(results);
+      res.send(results);
     })
     .catch(err => console.error(err));
 });
