@@ -53,7 +53,7 @@ class Library extends React.Component {
       {this.state.songs.map((song, index) => {
         return <li key={index} className="listItems">
         <div className="song-title" >
-        {song.artist} | {song.songname}
+        {song.artistname} | {song.songname}
         
         </div>
         
