@@ -100,7 +100,7 @@ app.get('/music', (req, res) => {
     }
   });
 });
-
+ 
 app.get('/video/:query', (req, res) => {
   const { query } = req.params;
   // send this query to Youtube API
@@ -115,8 +115,8 @@ app.get('/video/:query', (req, res) => {
       //get lyrics for that song
       return [link, axios.get(`https://audd.p.rapidapi.com/findLyrics/?q=${response.data.items[0].snippet.title}`, {
         headers: {
-        "X-RapidAPI-Host": process.env.X-RapidAPI-Host,
-        "X-RapidAPI-Key": process.env.X-RapidAPI-Key,
+        "X-RapidAPI-Host": process.env.X_RapidAPI_Host,
+        "X-RapidAPI-Key": process.env.X_RapidAPI_Key,
       },
     })]
       
