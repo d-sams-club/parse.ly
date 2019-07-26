@@ -53,7 +53,7 @@ class App extends Component {
 
   handleSave(song) {
     console.log('click app');
-    console.log(song);
+    console.log('current log', song);
     axios.post('/library', {
       song: song
     }).then((response) => {

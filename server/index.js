@@ -100,14 +100,16 @@ app.post('/library', (req, res) => {
 })
 
 app.get('/library', (req, res) => {
-  console.log('here');
   FavoriteSongs.find().limit(10) //REMOVE TO SHOW ALL OF USERS FAVORITED SONGS
     .then((results) => {
-      console.log(results);
       res.statusCode = 200;
       res.send(results);
     })
     .catch(err => console.error(err));
+});
+
+app.delete('/library/:item', (req, res) => {
+  console.log('hi', req.params);
 });
 
 app.get('/music', (req, res) => {

@@ -32,7 +32,13 @@ class Library extends React.Component {
   } 
 
   removeSong(song) {
-
+    console.log('song to delete', song);
+    axios.delete('/library', {item: song})
+    .then((response) => {
+      console.log('response to delete request', response);
+    }).catch((error) => {
+      console.log(error);
+    })
   }
 
   render() {
@@ -44,7 +50,6 @@ class Library extends React.Component {
           <h4>Library</h4>
           </div>
           
-          <div className="song-title">
       {this.state.songs.map((song, index) => {
         return <li key={index} className="listItems">
         <div className="song-title" >
@@ -56,10 +61,9 @@ class Library extends React.Component {
           <b>Score: </b>
           {`${Math.floor(song.score * 100)}% ${song.polarity} lyrics`}
         </div>
-        <button className="waves-effect waves-light btn blue accent-3">Remove</button>
+        <button className="waves-effect waves-light btn blue accent-3" onClick={this.removeSong}>Remove</button>
       </li>
       })}
-    </div>  
       </React.Fragment>
     );
   }

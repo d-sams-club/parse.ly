@@ -32,7 +32,14 @@ const User = mongoose.model('User', userSchema);
 const FavoriteSongs = mongoose.model('FavoriteSongs', favoriteSongSchema);
 
 const saveFavorite = function(song) {
-  let Mysong = new FavoriteSongs({songname: song.songname ,artistname: song.artistname ,score: song.score ,polarity: song.polarity ,trackId: song.trackId})
+  console.log('song', song)
+  let Mysong = new FavoriteSongs({
+    songname: song.songname,
+    artistname: song.artist,
+    score: song.score,
+    polarity: song.polarity,
+    trackId: song.trackId
+  })
   Mysong.save();
   console.log(song, 'song has been saved!');
 }

@@ -10,10 +10,7 @@ const SongListEntry = (props) => {
   };
   return (
     <li className="listItems">
-      {/* <div className="artist-name">
-        <b>Artist: </b>
-        {song.artist}
-      </div> */}
+    
       <div className="song-title" onClick={titleClick} >
       {song.artist} | {song.songname}
       
