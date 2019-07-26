@@ -17,12 +17,14 @@ class App extends Component {
       query: '',
       songs: [],
       polarity: '',
+      sort: 'a-z',
     };
     this.clickSearch = this.clickSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.songTitleClick = this.songTitleClick.bind(this);
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
+    this.handleSortClick = this.handleSortClick.bind(this);
   }
 
   componentWillMount() {
@@ -68,32 +70,49 @@ class App extends Component {
     });
   }
 
+  handleSortClick() {
+    if (this.state.sort === 'mood') {
+      this.setState({
+        sort: 'a-z',
+      });
+    } else {
+      this.setState({
+        sort: 'mood',
+      });
+    }
+  }
+  // handleClick() {
+  //   this.setState(state => ({
+  //     isToggleOn: !state.isToggleOn
+  //   }));
+
 
   render() {
     const {
-      query, songs, polarity, video,
+      query, songs, polarity, video, sort
     } = this.state;
     return (
       <React.Fragment>
         <Navigation />
+        Sort By <button className="sortButton" onClick={this.handleSortClick} type="button">{sort}</button>
         <div className="container">
           <h4>Who do you want to listen to?</h4>
-          </div>
-          <div className="col-md-6 offset-md-3">
-            <Search
-              query={query}
-              change={this.handleChange}
-              search={this.clickSearch}
-              positivePolarity={this.handlePositivePolarity}
-              negativePolarity={this.handleNegativePolarity}
-            />
-          </div>
+        </div>
+        <div className="col-md-6 offset-md-3">
+          <Search
+            query={query}
+            change={this.handleChange}
+            search={this.clickSearch}
+            positivePolarity={this.handlePositivePolarity}
+            negativePolarity={this.handleNegativePolarity}
+          />
+        </div>
         <div className="section">
           <div className="player">
             <VideoPlayer video={video} />
           </div>
           <div className="songTitles">
-            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} />
+            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} sort={sort} />
           </div>
         </div>
       </React.Fragment>
