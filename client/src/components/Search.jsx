@@ -11,6 +11,7 @@ const Search = ({
         <h4>How are you feeling?</h4>
         <button type="button" className="waves-effect waves-light btn blue accent-3 happy" onClick={() => { positivePolarity(); search(query); }}>
           Happy
+
           {/* Happy Emoji button */}
         </button>
         <button type="button" className="waves-effect waves-light btn blue accent-3 sad" onClick={() => { negativePolarity(); search(query); }}>

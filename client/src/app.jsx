@@ -7,6 +7,7 @@ import Navigation from './navbar.jsx';
 import Search from './components/Search.jsx';
 import SongList from './components/SongList.jsx';
 import VideoPlayer from './components/VideoPlayer.jsx';
+import Library from './Library.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class App extends Component {
       video: '',
       query: '',
       songs: [],
+      favSongs: [],
       polarity: '',
       sort: 'a-z',
     };
@@ -24,6 +26,7 @@ class App extends Component {
     this.songTitleClick = this.songTitleClick.bind(this);
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     this.handleSortClick = this.handleSortClick.bind(this);
   }
 
@@ -48,6 +51,19 @@ class App extends Component {
     this.setState({
       query: e.target.value,
     });
+  }
+
+  handleSave(song) {
+    console.log('click app');
+    console.log('current log', song);
+    axios.post('/library', {
+      song: song
+    }).then((response) => {
+      console.log('response', response);
+    }).catch((error) => {
+      console.log(error);
+    })
+    
   }
 
   songTitleClick(title) {
@@ -112,7 +128,7 @@ class App extends Component {
             <VideoPlayer video={video} />
           </div>
           <div className="songTitles">
-            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} sort={sort} />
+            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} handleSave={this.handleSave} sort={sort} />
           </div>
         </div>
       </React.Fragment>
