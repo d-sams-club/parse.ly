@@ -7,6 +7,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const { Song, User, FavoriteSongs, saveFavorite } = require('../database/database');
 
+
 // Configure the Facebook strategy for use by Passport.
 //
 // OAuth 2.0-based strategies require a `verify` function which receives the
@@ -120,7 +121,6 @@ app.get('/music', (req, res) => {
   });
 });
 
-
 app.get('/video/:query', (req, res) => {
   const { query } = req.params;
   // send this query to Youtube API
@@ -129,9 +129,27 @@ app.get('/video/:query', (req, res) => {
   axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${uriQuery}&key=${process.env.YT_API_KEY}`)
     .then((response) => {
       const { videoId } = response.data.items[0].id;
+      console.log(response.data.items[0].snippet.title);
+      //video url
       const link = `https://www.youtube.com/embed/${videoId}`;
-      res.status(200);
-      res.json(link);
+      //get lyrics for that song
+      return [link, axios.get(`https://audd.p.rapidapi.com/findLyrics/?q=${response.data.items[0].snippet.title}`, {
+        headers: {
+        "X-RapidAPI-Host": process.env.X_RapidAPI_Host,
+        "X-RapidAPI-Key": process.env.X_RapidAPI_Key,
+      },
+    })]
+      
+    }) 
+    .then((arrayWithLinkAndPromise) => {
+      const link = arrayWithLinkAndPromise[0];
+      const promise = arrayWithLinkAndPromise[1];
+      promise.then((audDResult) => {
+        res.send({
+          link: link,
+          lyrics: audDResult.data.result[0].lyrics,
+        })
+      })
     })
     .catch(err => console.error(err));
 });
@@ -156,7 +174,8 @@ app.get('/topten/positive', (req, res) => {
 //     .catch(err => console.error(err));
 // });
 
-// // UNCOMMENT WHEN TESTING SERVER
+
+// UNCOMMENT WHEN TESTING SERVER
 // app.get('/search/:artist', (req, res) => {
 //   res.status(200);
 //   res.json([
@@ -345,8 +364,8 @@ app.get('/topten/positive', (req, res) => {
 //   ]);
 // });
 
-// COMMENT OUT ENTIRE APP.GET FUNCTION WHEN TESTING SEARCH FUNCTIONALITY
-// GET sent from search function
+// // COMMENT OUT ENTIRE APP.GET FUNCTION WHEN TESTING SEARCH FUNCTIONALITY
+// // GET sent from search function
 app.get('/search/:artist', (req, res) => {
   const { artist } = req.params;
   // 1: get aritist ID from MusixMatch, using the query obj
@@ -418,6 +437,7 @@ app.get('/search/:artist', (req, res) => {
           const lyricsPosts = lyricsURI.map(lyrics => axios.post(`https://api.aylien.com/api/v1/sentiment?text=${lyrics}&mode=document`, null, config));
           const songsDataAndLyricPosts = [songsDataAndPromises[0], lyricsPosts];
           return songsDataAndLyricPosts;
+          
         })
         .then((songsDataAndLyricPosts) => {
           Promise.all(songsDataAndLyricPosts[1])
