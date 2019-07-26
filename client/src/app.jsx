@@ -52,16 +52,12 @@ class App extends Component {
   }
 
   handleSave(song) {
-    // this.setState({
-    //   favSongs: this.state.favSongs.concat(song),
-    // });
-    // console.log('log from app', this);
-    console.log('click');
+    console.log('click app');
     console.log(song);
     axios.post('/library', {
       song: song
     }).then((response) => {
-      console.log(response);
+      console.log('response', response);
     }).catch((error) => {
       console.log(error);
     })

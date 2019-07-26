@@ -8,18 +8,10 @@ class Library extends React.Component {
     super(props);
     
     this.state = {
-      songs: [{
-        songname: 'test',
-        artist: 'radiohead',
-        trackId: 131252745,
-        score: 0.543400228023529,
-        polarity: 'positive',
-      }],
+      songs: [],
     };
-
     this.favoriteSongs = this.favoriteSongs.bind(this);
-    this.removeSong = this.removeSong.bind(this);
-    
+    this.removeSong = this.removeSong.bind(this); 
   }
 
   componentDidMount() {
@@ -30,8 +22,7 @@ class Library extends React.Component {
     console.log('click');
     axios.get('/library').then((result) => {
       console.log('this is the result', result);
-      // this.songs = result.data;
-      console.log('here', this.songs);
+       console.log('here', result.data);
       this.setState({
         songs: result.data,
       })
@@ -39,8 +30,9 @@ class Library extends React.Component {
       console.log('error', error);
     })
   } 
+
   removeSong(song) {
-    
+
   }
 
   render() {

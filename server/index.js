@@ -95,16 +95,16 @@ app.get('/', (req, res) => {
 app.post('/library', (req, res) => {
   // const {songname, artist, score, trackId, polarity} = req.body.song;
   saveFavorite(req.body.song);
-  res.statusCode(200);
-  res.end();
+  res.statusCode = 200;
+  res.send(`${req.body.song.songname} was saved!`);
 })
 
 app.get('/library', (req, res) => {
   console.log('here');
-  FavoriteSongs.find().limit(1) //REMOVE TO SHOW ALL OF USERS FAVORITED SONGS
+  FavoriteSongs.find().limit(10) //REMOVE TO SHOW ALL OF USERS FAVORITED SONGS
     .then((results) => {
-      console.log('library results', results);
-      res.status(200);
+      console.log(results);
+      res.statusCode = 200;
       res.send(results);
     })
     .catch(err => console.error(err));
