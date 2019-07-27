@@ -28,7 +28,9 @@ class App extends Component {
     this.songTitleClick = this.songTitleClick.bind(this);
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
-    this.happyEmojiScore = this.happyEmojiScore.bind(this);
+    this.emojiScore = this.emojiScore.bind(this);
+    this.emojiClick = this.emojiClick.bind(this);
+    this.scaleRender = this.scaleRender.bind(this);
   }
 
   componentWillMount() {
@@ -40,7 +42,15 @@ class App extends Component {
     }
   }
 
-  happyEmojiScore(polarity, score) {
+  emojiClick(newScore) {
+    const { score } = this.state;
+    console.log('emojiClick', score, newScore);
+    this.setState({
+      score: newScore,
+    });
+  }
+
+  emojiScore(polarity, score) {
     // const { songs } = this.state;
     // very sad score
     const newScore = Number(score);
@@ -73,6 +83,24 @@ class App extends Component {
     }
   }
 
+  scaleRender() {
+    return (
+      <div className="details">
+        <div>
+          {/* Song Info; maybe Score info? */}
+          <h4 id="emojiHeader">
+            Disagree with our ratings? What do you think?
+          </h4>
+          <img src="/images/dummyhappy.png" alt="happy" id="veryHappy" />
+          <img src="/images/ModerateHappy.png" alt="semi-happy" id="moderateHappy" />
+          <img src="/images/Neutral.png" alt="neutral" id="Neutral" />
+          <img src="/images/dummySad.png" alt="dumSad" id="moderateSad" />
+          <img src="/images/HellaSad.png" alt="sad" id="verySad" />
+        </div>
+      </div>
+    );
+  }
+
   clickSearch() {
     const { query } = this.state;
     return axios.get(`/search/${query}`).then((response) => {
@@ -89,6 +117,7 @@ class App extends Component {
   }
 
   songTitleClick(title) {
+    console.log(title);
     return axios.get(`/video/${title}`).then((response) => {
       this.setState({
         video: response.data,
@@ -114,7 +143,7 @@ class App extends Component {
 
   render() {
     const {
-      query, songs, polarity, video,
+      query, songs, polarity, video, score,
     } = this.state;
     return (
       <React.Fragment>
@@ -134,10 +163,10 @@ class App extends Component {
         <div className="section">
           <div className="player">
             {/* need to pass in the scale function here */}
-            <VideoPlayer video={video} />
+            <VideoPlayer video={video} emojiClick={this.emojiClick} />
           </div>
           <div className="songTitles">
-            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} emojiScore={this.happyEmojiScore} />
+            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} emojiScore={this.emojiScore} scaleRender={this.scaleRender} />
           </div>
         </div>
       </React.Fragment>

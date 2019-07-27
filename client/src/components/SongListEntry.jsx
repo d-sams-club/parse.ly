@@ -3,21 +3,20 @@
 import React from 'react';
 
 const SongListEntry = (props) => {
-  const { song, songTitleClick, polarity, iconScore } = props;
+  const { song, songTitleClick, polarity, iconScore, scaleRender } = props;
   const titleClick = () => {
     songTitleClick(`${song.artist} ${song.songname}`);
   };
   const songScore = `${Math.floor(song.score * 100)}`;
-  console.log(song.songname, songScore);
-  console.log(polarity);
-  console.log(iconScore(songScore));
+  
+  console.log(songScore);
   return (
     <li className="listItems">
       {/* <div className="artist-name">
         <b>Artist: </b>
         {song.artist}
       </div> */}
-      <div className="song-title" onClick={titleClick}>
+      <div className="song-title" onClick={(event) => { titleClick(); scaleRender(); }}>
         {song.artist} | {song.songname}
       </div>
 
