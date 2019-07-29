@@ -1,32 +1,29 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import Scale from './Scale.jsx';
+
 
 const SongListEntry = (props) => {
-  const { song, songTitleClick, polarity, iconScore, scaleRender } = props;
+  const { song, songTitleClick, polarity, iconScore, scale } = props;
+  const songScore = `${Math.floor(song.score * 100)}`;
   const titleClick = () => {
     songTitleClick(`${song.artist} ${song.songname}`);
+    // return <Scale score={songScore} />;
   };
-  const songScore = `${Math.floor(song.score * 100)}`;
-  
-  console.log(songScore);
+  // console.log(songScore);
   return (
-    <li className="listItems">
-      {/* <div className="artist-name">
-        <b>Artist: </b>
-        {song.artist}
-      </div> */}
-      <div className="song-title" onClick={(event) => { titleClick(); scaleRender(); }}>
-        {song.artist} | {song.songname}
-      </div>
-
-      <div className="score">
-        {/* <b>Score: </b> */}
-        {iconScore(polarity, songScore)}
-        {/* {`${songScore}% ${polarity} lyrics`}
-        <img src="/images/dummyhappy.png" alt="happy" /> */}
-      </div>
-    </li>
+    <div>
+      <li className="listItems">
+        <div className="song-title" onClick={titleClick}>
+          {song.artist} | {song.songname}
+        </div>
+        <div className="score">
+          {iconScore(polarity, songScore)}
+        </div>
+      </li>
+      {scale && <Scale score={songScore} /> }
+    </div>
   );
 };
 

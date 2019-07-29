@@ -12,6 +12,7 @@ import Navigation from './navbar.jsx';
 import Search from './components/Search.jsx';
 import SongList from './components/SongList.jsx';
 import VideoPlayer from './components/VideoPlayer.jsx';
+// import Scale from './components/Scale.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -29,8 +30,9 @@ class App extends Component {
     this.handlePositivePolarity = this.handlePositivePolarity.bind(this);
     this.handleNegativePolarity = this.handleNegativePolarity.bind(this);
     this.emojiScore = this.emojiScore.bind(this);
-    this.emojiClick = this.emojiClick.bind(this);
-    this.scaleRender = this.scaleRender.bind(this);
+    this.showScale = false;
+    // this.emojiClick = this.emojiClick.bind(this);
+    // this.scaleRender = this.scaleRender.bind(this);
   }
 
   componentWillMount() {
@@ -42,13 +44,13 @@ class App extends Component {
     }
   }
 
-  emojiClick(newScore) {
-    const { score } = this.state;
-    console.log('emojiClick', score, newScore);
-    this.setState({
-      score: newScore,
-    });
-  }
+  // emojiClick(newScore) {
+  //   const { score } = this.state;
+  //   console.log('emojiClick', score, newScore);
+  //   this.setState({
+  //     score: newScore,
+  //   });
+  // }
 
   emojiScore(polarity, score) {
     // const { songs } = this.state;
@@ -83,23 +85,23 @@ class App extends Component {
     }
   }
 
-  scaleRender() {
-    return (
-      <div className="details">
-        <div>
-          {/* Song Info; maybe Score info? */}
-          <h4 id="emojiHeader">
-            Disagree with our ratings? What do you think?
-          </h4>
-          <img src="/images/dummyhappy.png" alt="happy" id="veryHappy" />
-          <img src="/images/ModerateHappy.png" alt="semi-happy" id="moderateHappy" />
-          <img src="/images/Neutral.png" alt="neutral" id="Neutral" />
-          <img src="/images/dummySad.png" alt="dumSad" id="moderateSad" />
-          <img src="/images/HellaSad.png" alt="sad" id="verySad" />
-        </div>
-      </div>
-    );
-  }
+  // scaleRender() {
+  //   return (
+  //     <div className="details">
+  //       <div>
+  //         {/* Song Info; maybe Score info? */}
+  //         <h4 id="emojiHeader">
+  //           Disagree with our ratings? What do you think?
+  //         </h4>
+  //         <img src="/images/dummyhappy.png" alt="happy" id="veryHappy" />
+  //         <img src="/images/ModerateHappy.png" alt="semi-happy" id="moderateHappy" />
+  //         <img src="/images/Neutral.png" alt="neutral" id="Neutral" />
+  //         <img src="/images/dummySad.png" alt="dumSad" id="moderateSad" />
+  //         <img src="/images/HellaSad.png" alt="sad" id="verySad" />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   clickSearch() {
     const { query } = this.state;
@@ -121,6 +123,7 @@ class App extends Component {
     return axios.get(`/video/${title}`).then((response) => {
       this.setState({
         video: response.data,
+        showScale: true,
       })
         .catch((err) => {
           console.log('failed to search YT: ', err);
@@ -143,7 +146,7 @@ class App extends Component {
 
   render() {
     const {
-      query, songs, polarity, video, score,
+      query, songs, polarity, video, showScale
     } = this.state;
     return (
       <React.Fragment>
@@ -163,10 +166,10 @@ class App extends Component {
         <div className="section">
           <div className="player">
             {/* need to pass in the scale function here */}
-            <VideoPlayer video={video} emojiClick={this.emojiClick} />
+            <VideoPlayer video={video} />
           </div>
           <div className="songTitles">
-            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} emojiScore={this.emojiScore} scaleRender={this.scaleRender} />
+            <SongList songs={songs} polarity={polarity} songTitleClick={this.songTitleClick} emojiScore={this.emojiScore} scale={showScale} />
           </div>
         </div>
       </React.Fragment>

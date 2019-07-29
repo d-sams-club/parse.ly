@@ -6,15 +6,15 @@ import SongListEntry from './SongListEntry.jsx';
 
 const SongList = (props) => {
   const {
-    songs, polarity, songTitleClick, emojiScore, scaleRender,
+    songs, polarity, songTitleClick, emojiScore, scaleRender, showScale,
   } = props;
   let songview;
   if (polarity === 'positive') {
     songview = songs.filter(song => song.polarity === 'positive')
-      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} iconScore={emojiScore} scaleRender={scaleRender} />);
+      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} iconScore={emojiScore} scaleRender={scaleRender} scale={showScale} />);
   } else if (polarity === 'negative') {
     songview = songs.filter(song => song.polarity === 'negative')
-      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} iconScore={emojiScore} scaleRender={scaleRender} />);
+      .map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} iconScore={emojiScore} scaleRender={scaleRender} scale={showScale} />);
   }
   return (
     <React.Fragment>
