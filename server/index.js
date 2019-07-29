@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const { Song, User } = require('../database/database');
+const {
+ Song, User, FavoriteSongs, saveFavorite 
+} = require('../database/database');
+
 
 // Configure the Facebook strategy for use by Passport.
 //
@@ -97,6 +100,26 @@ app.get('/', (req, res) => {
   });
 });
 
+app.post('/library', (req, res) => {
+  // const {songname, artist, score, trackId, polarity} = req.body.song;
+  saveFavorite(req.body.song);
+  res.statusCode = 200;
+  res.send(`${req.body.song.songname} was saved!`);
+});
+
+app.get('/library', (req, res) => {
+  FavoriteSongs.find().limit(10) // REMOVE TO SHOW ALL OF USERS FAVORITED SONGS
+    .then((results) => {
+      res.statusCode = 200;
+      res.send(results);
+    })
+    .catch(err => console.error(err));
+});
+
+app.delete('/library/:item', (req, res) => {
+  console.log('hi', req.params);
+});
+
 app.get('/music', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'), (err) => {
     if (err) {
@@ -113,9 +136,26 @@ app.get('/video/:query', (req, res) => {
   axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${uriQuery}&key=${process.env.YT_API_KEY}`)
     .then((response) => {
       const { videoId } = response.data.items[0].id;
+      console.log(response.data.items[0].snippet.title);
+      // video url
       const link = `https://www.youtube.com/embed/${videoId}`;
-      res.status(200);
-      res.json(link);
+      // get lyrics for that song
+      return [link, axios.get(`https://audd.p.rapidapi.com/findLyrics/?q=${response.data.items[0].snippet.title}`, {
+        headers: {
+          'X-RapidAPI-Host': process.env.X_RapidAPI_Host,
+          'X-RapidAPI-Key': process.env.X_RapidAPI_Key,
+        },
+      })];
+    })
+    .then((arrayWithLinkAndPromise) => {
+      const link = arrayWithLinkAndPromise[0];
+      const promise = arrayWithLinkAndPromise[1];
+      promise.then((audDResult) => {
+        res.send({
+          link,
+          lyrics: audDResult.data.result[0].lyrics,
+        });
+      });
     })
     .catch(err => console.error(err));
 });
@@ -130,15 +170,16 @@ app.get('/topten/positive', (req, res) => {
     .catch(err => console.error(err));
 });
 
-app.get('/topten/negative', (req, res) => {
-  // get all songs from DB with a positive polarity
-  Song.find({ polarity: 'negative' }).sort({ score: -1 }).limit(10)
-    .then((results) => {
-      res.status(200);
-      res.json(results);
-    })
-    .catch(err => console.error(err));
-});
+// app.get('/topten/negative', (req, res) => {
+//   // get all songs from DB with a positive polarity
+//   Song.find({ polarity: 'negative' }).sort({ score: -1 }).limit(10)
+//     .then((results) => {
+//       res.status(200);
+//       res.json(results);
+//     })
+//     .catch(err => console.error(err));
+// });
+
 
 // UNCOMMENT WHEN TESTING SERVER
 app.get('/search/:artist', (req, res) => {
@@ -243,36 +284,36 @@ app.get('/search/:artist', (req, res) => {
       polarity: 'negative',
     },
     {
-  songname: 'Daydreaming',
-  artist: 'radiohead',
-  trackId: 111289200,
-  score: 0.8257342576980591,
-  polarity: 'negative',
-},
-{
-  songname: 'Decks Dark',
-  artist: 'radiohead',
-  trackId: 111289202,
-  score: 0.535029947757721,
-  polarity: 'positive',
-},
-{
-  songname: 'Desert Island Disk',
-  artist: 'radiohead',
-  trackId: 111289204,
-  score: 0.520104706287384,
-  polarity: 'negative',
-},
-{
-  songname: 'Ful Stop',
-  artist: 'radiohead',
-  trackId: 111289205,
-  score: 0.9969593286514282,
-  polarity: 'negative',
-},
-{
-  songname: 'Glass Eyes',
-  artist: 'radiohead',
+      songname: 'Daydreaming',
+      artist: 'radiohead',
+      trackId: 111289200,
+      score: 0.8257342576980591,
+      polarity: 'negative',
+    },
+    {
+      songname: 'Decks Dark',
+      artist: 'radiohead',
+      trackId: 111289202,
+      score: 0.535029947757721,
+      polarity: 'positive',
+    },
+    {
+      songname: 'Desert Island Disk',
+      artist: 'radiohead',
+      trackId: 111289204,
+      score: 0.520104706287384,
+      polarity: 'negative',
+    },
+    {
+      songname: 'Ful Stop',
+      artist: 'radiohead',
+      trackId: 111289205,
+      score: 0.9969593286514282,
+      polarity: 'negative',
+    },
+    {
+      songname: 'Glass Eyes',
+      artist: 'radiohead',
       trackId: 111289206,
       score: 0.730898916721344,
       polarity: 'positive',
