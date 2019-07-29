@@ -103,3 +103,56 @@ h5 {
     margin-right: 20px;
   }
 }
+
+#emojiHeader {
+  position: absolute;
+  font-size: 30px;
+  top: 800px;
+  left: 1020px;
+}
+
+#veryHappy {
+  position: absolute;
+  height: 75px;
+  width: 75px;
+  top: 875px;
+  left: 1175px;
+}
+
+#moderateHappy {
+  position: absolute;
+  height: 58px;
+  width: 58px;
+  top: 884px;
+  left: 1250px;
+}
+
+#Neutral {
+  position: absolute;
+  height: 63px;
+  width: 63px;
+  top: 882px;
+  left: 1313px;
+}
+
+#moderateSad {
+  position: absolute;
+  height: 59px;
+  width: 59px;
+  top: 884px;
+  left: 1382px;
+}
+
+#verySad {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  top: 883px;
+  left: 1450px;
+}
+
+#entryEmoji {
+  position: relative;
+  height: 60px;
+  width: 60px;
+}

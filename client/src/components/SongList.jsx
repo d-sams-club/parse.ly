@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 import SongListEntry from './SongListEntry.jsx';
 
 const SongList = (props) => {
-  const { songs, polarity, songTitleClick, sort, handleSave} = props;
+  const { songs, polarity, songTitleClick, sort, handleSave, emojiScore, showScale } = props;
   const compare = (a, b) => {
     let comparison;
     if (sort === 'a-z') {
@@ -20,16 +22,13 @@ const SongList = (props) => {
     return comparison;
   };
   let songview;
- 
   if (polarity === 'positive') {
-
     songview = songs.filter(song => song.score > 0.501)
-      .sort(compare).map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} />);
+      .sort(compare).map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} iconScore={emojiScore} scale={showScale} />);
   } else if (polarity === 'negative') {
     songview = songs.filter(song => song.score > 0.501)
-      .sort(compare).map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} />);
+      .sort(compare).map((song, i) => <SongListEntry song={song} key={i} songTitleClick={songTitleClick} polarity={polarity} handleSave={handleSave} iconScore={emojiScore} scale={showScale} />);
   }
-  
 
   return (
     <React.Fragment>
